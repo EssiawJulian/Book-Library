@@ -1,5 +1,9 @@
 let myLibrary = [];
 
+document.addEventListener("DOMContentLoaded", () => {
+  restoreLocal();
+});
+
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
