@@ -3,9 +3,90 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>BookNest</title>
     <link rel="stylesheet" href="./assets/style.css" />
-    <script src="./assets/script.js"></script>
+    <script src="./assets/script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <div class="header-container">
+        <img
+          src="./assets/img/book-open-page-variant-outline.svg"
+          alt="image of an owl with the web name which is BookNest"
+        />
+        <div>BookNest</div>
+      </div>
+      <nav class="nav-links">
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- Main Section Header -->
+    <div class="main-header">
+      <div>Welcome Readers</div>
+      <div class="add-book-btn">ADD BOOK</div>
+    </div>
+    <!-- Book Container -->
+    <div class="book-container"></div>
+    <dialog class="modal">
+      <span class="close-btn" autofocus>&times;</span>
+      <h3>Add Book</h3>
+      <form id="book-form">
+        <div>
+          <label for="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            pattern="^[^0-9]+$"
+            placeholder="Book Title"
+            maxlength="25"
+            required
+          />
+        </div>
+        <div>
+          <label for="author">Author:</label>
+          <input
+            type="text"
+            id="author"
+            name="author"
+            pattern="^[^0-9]+$"
+            placeholder="Author Name"
+            required
+          />
+        </div>
+        <div>
+          <label for="pages">Pages:</label>
+          <input
+            type="text"
+            id="pages"
+            name="pages"
+            placeholder="Number of Pages"
+            pattern="^[0-9]+$"
+            required
+          />
+        </div>
+        <div>
+          <label for="read">Read:</label>
+          <select name="read" id="read" required>
+            <option value="" disabled selected>Choose an option</option>
+            <option value="yes">Read</option>
+            <option value="no">Not Read</option>
+          </select>
+          <div>
+            <button type="submit" class="confirm-submission">Add</button>
+            <button class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+    <!-- Footer Section -->
+    <footer>
+      <div>BookNest</div>
+      <div>© 2020 BookNest. All rights reserved.</div>
+    </footer>
+  </body>
 </html>
