@@ -33,9 +33,10 @@ const bookStorage = (() => {
   function restoreLocal() {
     console.log("Restoring local storage");
     const storedBooks = localStorage.getItem("myLibrary");
-    if (storedBooks) {
+    myLibrary = JSON.parse(storedBooks);
+    if (myLibrary.length > 0) {
       console.log("Found stored books");
-      myLibrary = JSON.parse(storedBooks);
+      console.log(myLibrary);
       displayBook();
     } else {
       console.log("No stored books found");
