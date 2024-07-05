@@ -1,53 +1,66 @@
 let myLibrary = [];
 
 document.addEventListener("DOMContentLoaded", () => {
-  restoreLocal();
+  bookStorage.restoreLocal();
 });
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
 
-  this.info = function () {
+// Book class
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+
+  info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${
       read ? "read" : "not read yet"
     }`;
   };
 }
 
+// Add book to library
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
-  saveLocal();
+  bookStorage.saveLocal();
 }
 
-function saveLocal() {
-  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
-}
-
-function restoreLocal() {
-  console.log("Restoring local storage");
-  const storedBooks = localStorage.getItem("myLibrary");
-  if (storedBooks) {
-    console.log("Found stored books");
-    myLibrary = JSON.parse(storedBooks);
-    displayBook();
-  } else {
-    console.log("No stored books found");
-    addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, "Read");
-    addBookToLibrary(
-      "The Fellowship of the Ring",
-      "J.R.R. Tolkien",
-      398,
-      "Not Read"
-    );
-
-    displayBook();
+// Contains functions to save and restore books from local storage
+const bookStorage = (() => {
+  function saveLocal() {
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
   }
-}
 
+  function restoreLocal() {
+    console.log("Restoring local storage");
+    const storedBooks = localStorage.getItem("myLibrary");
+    myLibrary = JSON.parse(storedBooks);
+    if (myLibrary.length > 0) {
+      console.log("Found stored books");
+      console.log(myLibrary);
+      displayBook();
+    } else {
+      console.log("No stored books found");
+      addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, "Read");
+      addBookToLibrary(
+        "The Fellowship of the Ring",
+        "J.R.R. Tolkien",
+        398,
+        "Not Read"
+      );
+
+      displayBook();
+    }
+  }
+
+  return { saveLocal, restoreLocal };
+})();
+
+
+// Display book
 function displayBook() {
   const bookContainer = document.querySelector(".book-container");
   bookContainer.innerHTML = "";
@@ -58,6 +71,7 @@ function displayBook() {
     bookContainer.appendChild(card);
   });
 }
+
 
 const addButton = document.querySelector(".add-book-btn");
 const closeButton = document.querySelector(".close-btn");
@@ -101,5 +115,5 @@ submitButton.addEventListener("click", (event) => {
 function removeBook(index) {
   myLibrary.splice(index, 1);
   displayBook();
-  saveLocal();
+  bookStorage.saveLocal();
 }
