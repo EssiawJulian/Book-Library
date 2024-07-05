@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   bookStorage.restoreLocal();
 });
 
+
+// Book class
 class Book {
   constructor(title, author, pages, read) {
     this.title = title;
@@ -19,12 +21,14 @@ class Book {
   };
 }
 
+// Add book to library
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
   bookStorage.saveLocal();
 }
 
+// Contains functions to save and restore books from local storage
 const bookStorage = (() => {
   function saveLocal() {
     localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
@@ -55,6 +59,8 @@ const bookStorage = (() => {
   return { saveLocal, restoreLocal };
 })();
 
+
+// Display book
 function displayBook() {
   const bookContainer = document.querySelector(".book-container");
   bookContainer.innerHTML = "";
@@ -65,6 +71,7 @@ function displayBook() {
     bookContainer.appendChild(card);
   });
 }
+
 
 const addButton = document.querySelector(".add-book-btn");
 const closeButton = document.querySelector(".close-btn");
